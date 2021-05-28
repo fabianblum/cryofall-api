@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Npc
  *
  * @ORM\Table(name="npc")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\NpcRepository")
  */
-class Npc
+class Npc implements EntityInterface
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ class Npc
      *
      * @ORM\Column(name="ingame_id", type="bigint", nullable=true)
      */
-    private $ingameId;
+    private $inGameId;
 
     /**
      * @var string|null
@@ -40,14 +40,14 @@ class Npc
         return $this->id;
     }
 
-    public function getIngameId(): ?string
+    public function getInGameId(): ?string
     {
-        return $this->ingameId;
+        return $this->inGameId;
     }
 
-    public function setIngameId(?string $ingameId): self
+    public function setInGameId(?string $inGameId): self
     {
-        $this->ingameId = $ingameId;
+        $this->inGameId = $inGameId;
 
         return $this;
     }

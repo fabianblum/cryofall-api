@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Server
  *
  * @ORM\Table(name="server", uniqueConstraints={@ORM\UniqueConstraint(name="server_guid_uindex", columns={"guid"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ServerRepository")
  */
-class Server
+class Server implements EntityInterface
 {
     /**
      * @var int

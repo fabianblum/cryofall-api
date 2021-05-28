@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Gathered
  *
  * @ORM\Table(name="gathered", indexes={@ORM\Index(name="gathered___player_fk", columns={"player_id"}), @ORM\Index(name="gathered___server_fk", columns={"server_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\GatheredRepository")
  */
-class Gathered
+class Gathered implements EntityInterface
 {
     /**
      * @var int

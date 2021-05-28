@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * IpGeo
  *
  * @ORM\Table(name="ip_geo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\IpGeoRepository")
  */
-class IpGeo
+class IpGeo implements EntityInterface
 {
     /**
      * @var string

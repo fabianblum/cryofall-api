@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Player
  *
  * @ORM\Table(name="player", uniqueConstraints={@ORM\UniqueConstraint(name="player_uid_uindex", columns={"uid"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
  */
-class Player
+class Player implements EntityInterface
 {
     /**
      * @var int

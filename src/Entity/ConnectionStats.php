@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * ConnectionStats
  *
  * @ORM\Table(name="connection_stats", indexes={@ORM\Index(name="connection_stats___player_fk", columns={"player_uid"}), @ORM\Index(name="connection_stats___ip_geo_fk", columns={"ip"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ConnectionStatsRepository")
  */
-class ConnectionStats
+class ConnectionStats implements EntityInterface
 {
     /**
      * @var int

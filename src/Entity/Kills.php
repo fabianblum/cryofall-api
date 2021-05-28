@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Kills
  *
  * @ORM\Table(name="kills", indexes={@ORM\Index(name="kills___killed_player_fk", columns={"killed_player_uid"}), @ORM\Index(name="kills___server_fk", columns={"server_id"}), @ORM\Index(name="kills___killed_npc_fk", columns={"killed_npc_id"}), @ORM\Index(name="kills___killer_player_fk", columns={"killer_player_uid"}), @ORM\Index(name="kills___killer_npc_fk", columns={"killer_npc_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\KillsRepository")
  */
-class Kills
+class Kills implements EntityInterface
 {
     /**
      * @var int
@@ -27,7 +27,7 @@ class Kills
      *
      * @ORM\Column(name="datetime", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $datetime = 'CURRENT_TIMESTAMP';
+    private $datetime;
 
     /**
      * @var null|Npc
@@ -78,6 +78,11 @@ class Kills
      * })
      */
     private $server;
+
+    public function __construct()
+    {
+        $this->datetime = new DateTime();
+    }
 
     public function getId(): ?string
     {

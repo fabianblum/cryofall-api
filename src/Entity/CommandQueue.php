@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * CommandQueue
  *
  * @ORM\Table(name="command_queue", uniqueConstraints={@ORM\UniqueConstraint(name="command_queue_id_uindex", columns={"id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CommandQueueRepository")
  */
-class CommandQueue
+class CommandQueue implements EntityInterface
 {
     /**
      * @var int
