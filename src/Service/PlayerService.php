@@ -1,19 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Npc;
 use App\Entity\Player;
-use App\Repository\NpcRepository;
 use App\Repository\PlayerRepository;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PlayerService
 {
-    private ObjectManager $objectManager;
+    private EntityManagerInterface $objectManager;
     private PlayerRepository $playerRepository;
 
-    public function __construct(PlayerRepository $playerRepository, ObjectManager $objectManager)
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
         $this->playerRepository = $playerRepository;

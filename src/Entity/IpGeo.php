@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Entity;
 
@@ -41,6 +42,12 @@ class IpGeo implements EntityInterface
      * @ORM\Column(name="continent_code", type="string", length=16, nullable=true)
      */
     private $continentCode;
+
+
+    public function setIp(string $ip): void
+    {
+        $this->ip = $ip;
+    }
 
     public function getIp(): ?string
     {

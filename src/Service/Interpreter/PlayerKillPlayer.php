@@ -3,39 +3,38 @@ declare(strict_types=1);
 
 namespace App\Service\Interpreter;
 
+use App\Entity\EntityInterface;
 use App\Entity\Kills;
 use App\Service\NpcService;
 use App\Service\PlayerService;
 
-class PlayerKillNpc extends AbstractRegexInterpreter
+class PlayerKillPlayer extends AbstractRegexInterpreter
 {
-    private NpcService $npcService;
     private PlayerService $playerService;
 
-    public function __construct(NpcService $npcService, PlayerService $playerService)
+    public function __construct(PlayerService $playerService)
     {
-        $this->npcService = $npcService;
         $this->playerService = $playerService;
     }
 
     public function getRegex(): string
     {
-        return '/Character \\"([^"]+)\\" \\(Id\\=([0-9]+)\\) by Character \\"PlayerCharacter\\" \\(\\"([^"]+)\\", Id=([0-9]+)\\)/';
+        return '/Character \"PlayerCharacter\" \(\"([^"]+)\", Id\=([0-9]+)\) by Character \"PlayerCharacter\" \(\"([^"]+)\", Id=([0-9]+)\)/';
     }
 
     protected function buildEntity(iterable $matches): Kills
     {
         $entity = new Kills();
 
-        $npcName = $matches[1];
-        $npcId = $matches[2];
+        $killedPlayerName = $matches[1];
+        $killedPlayerUid = $matches[2];
         $playerName = $matches[3];
         $playerId = $matches[4];
 
-        $npc = $this->npcService->getOrCreate($npcName, $npcId);
         $player = $this->playerService->getOrCreate($playerName);
+        $killedPlayer = $this->playerService->getOrCreate($killedPlayerName);
 
-        $entity->setKilledNpc($npc);
+        $entity->setKilledPlayerUid($killedPlayer);
         $entity->setKillerPlayerUid($player);
 
         return $entity;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Service\Interpreter;
 
@@ -10,7 +11,7 @@ abstract class AbstractRegexInterpreter implements RegexInterpreterInterface
     public function interpret(Server $server, string $line)
     {
         $matches = null;
-        if (!preg_match($this->getRegex(), $matches)) {
+        if (!preg_match($this->getRegex(), $line, $matches)) {
             return;
         }
 

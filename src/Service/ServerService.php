@@ -1,17 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Service;
 
 use App\Entity\Server;
 use App\Repository\ServerRepository;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ServerService
 {
-    private ObjectManager $objectManager;
+    private EntityManagerInterface $objectManager;
     private ServerRepository $serverRepository;
 
-    public function __construct(ServerRepository $serverRepository, ObjectManager $objectManager)
+    public function __construct(ServerRepository $serverRepository, EntityManagerInterface $objectManager)
     {
         $this->objectManager = $objectManager;
         $this->serverRepository = $serverRepository;

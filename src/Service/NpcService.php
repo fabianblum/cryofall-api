@@ -1,17 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Service;
 
 use App\Entity\Npc;
 use App\Repository\NpcRepository;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 
 class NpcService
 {
     private NpcRepository $npcRepository;
-    private ObjectManager $objectManager;
+    private EntityManagerInterface $objectManager;
 
-    public function __construct(NpcRepository $npcRepository, ObjectManager $objectManager)
+    public function __construct(NpcRepository $npcRepository, EntityManagerInterface $objectManager)
     {
         $this->npcRepository = $npcRepository;
         $this->objectManager = $objectManager;
