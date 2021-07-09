@@ -6,9 +6,8 @@ namespace App\Controller;
 
 use App\Service\InterpreterService;
 use App\Service\ServerService;
+use Exception;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\View\ViewHandlerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,13 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class TokenController extends AbstractFOSRestController
 {
 
+
     /**
      * @Rest\Post("/line")
      *
      * @param Request $request
      * @return Response
      */
-    public function postRawString(Request $request): Response
+    public function postRawString(ServerService $serverService,Request $request): Response
     {
         $content = json_decode($request->getContent(), true);
 
@@ -37,13 +37,13 @@ class TokenController extends AbstractFOSRestController
             throw new HttpException(500, "Missing content string");
         }
 
-        $server = $this->serverService->getOrCreate($content['GUID']);
+        $server = $serverService->getOrCreate($content['GUID']);
 
         $interpreter = new InterpreterService();
 
         try {
             $interpreter->interpretLine($server, $content['line']);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse(["error" => $e->getMessage()], 500);
         }
 

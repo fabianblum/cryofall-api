@@ -2,15 +2,21 @@
 
 namespace App\Controller;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AuthController extends AbstractController
 {
-    public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
+ public function __construct(TokenStorageInterface $storage)
+ {
+ }
+
+ public function register(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         try {
             $em = $this->getDoctrine()->getManager();
@@ -23,15 +29,10 @@ class AuthController extends AbstractController
             $em->persist($user);
             $em->flush();
         }
-        catch(\Exception $e) {
+        catch(Exception $e) {
             return new Response($e->getMessage());
         }
 
         return new Response(sprintf('User %s successfully created', $user->getUsername()));
-    }
-
-    public function api(): Response
-    {
-        return new Response(sprintf('Logged in as %s', $this->getUser()->getUsername()));
     }
 }
